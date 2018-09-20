@@ -10,59 +10,74 @@ const { ENV: { JWT_SECRET } } = require('./utils/config');
 
 module.exports = {
   createUser: [
-    async (ctx, next) => {
-      await next();
+    function* create(next) {
+      yield next;
 
-      const { request: { body: { username, password } } } = ctx;
-      await createUser({
+      const { request: { body: { username, password } } } = this;
+      yield createUser({
         username,
         rawPassword: password,
       });
 
-      ctx.body = {
+      this.body = {
         message: 'User registered successfully',
       };
     },
     checkSignupParams,
-    checkUsernameExistence],
+    checkUsernameExistence
+  ],
 
   login: [
-    async (ctx, next) => {
-      await next();
+    function* (next) {
+      yield next;
 
-      const { state: { user: { id } } } = ctx;
+      const { state: { user: { id } } } = this;
       const jwt = jsonwebtoken.sign({ id }, JWT_SECRET);
 
-      ctx.body = {
+      this.body = {
         jwt,
       };
     },
-    async ctx => passport.authenticate('local', (err, user) => {
-      if (!user) {
-        ctx.throw(401);
-      }
+    function* () {
+      const ctx = this;
+      yield passport.authenticate('local', function* (err, user) {
+        if (err) {
+          ctx.throw(500);
+        }
 
-      ctx.state.user = user;
-    })(ctx),
+        if (!user) {
+          ctx.throw(401);
+        }
+
+        ctx.state.user = user;
+      }).call(this);
+    }
   ],
 
   auth: [
-    async (ctx, next) => {
-      await next();
+    function* (next) {
+      yield next;
 
-      const { state: { user: { id, username } } } = ctx;
+      const { state: { user: { id, username } } } = this;
 
-      ctx.body = {
+      this.body = {
         id,
         username,
       };
     },
-    async ctx => passport.authenticate('jwt', (err, user) => {
-      if (!user) {
-        ctx.throw(401);
-      }
+    function* () {
+      const ctx = this;
+      yield passport.authenticate('jwt', function* (err, user) {
+        if (err) {
+          ctx.throw(500);
+        }
 
-      ctx.state.user = user;
-    })(ctx),
-  ],
+        if (!user) {
+          ctx.throw(401);
+        }
+
+        ctx.state.user = user;
+      }).call(this);
+    }
+  ]
 };

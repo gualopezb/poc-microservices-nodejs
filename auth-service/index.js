@@ -17,9 +17,10 @@ const router = new Router();
 koaValidate(app);
 app.proxy = true;
 
-app.use(morgan('dev'));
+app.use(morgan.middleware('combined'));
+
 app.use(bodyParser());
-app.use(error(formatError));
+app.use(error({ format: formatError }));
 
 router.post('/api/users', ...createUser);
 router.post('/api/users/login', ...login);

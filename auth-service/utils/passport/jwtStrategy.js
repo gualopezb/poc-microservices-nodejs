@@ -21,7 +21,7 @@ const jwtLogin = new Strategy(
         }
       })
       .catch(err => done(err, false));
-  },
+  }
 );
 
 passport.use(jwtLogin);

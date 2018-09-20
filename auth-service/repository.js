@@ -6,21 +6,18 @@ const findUserByUsername = username => User.findOne({ username });
 
 const findUserById = id => User.findById(id);
 
-const createUser = async ({ username, rawPassword }) => {
-  const password = await bcrypt.hash(rawPassword, 8);
+const createUser = ({ username, rawPassword }) => bcrypt.hash(rawPassword, 8)
+  .then((password) => {
+    const user = new User({
+      username,
+      password,
+    });
 
-  const user = new User({
-    username,
-    password,
+    return user.save();
+  })
+  .catch((err) => {
+    throw new Error(err);
   });
-
-  try {
-    await user.save();
-    return user;
-  } catch (e) {
-    throw new Error(e);
-  }
-};
 
 module.exports = {
   createUser,

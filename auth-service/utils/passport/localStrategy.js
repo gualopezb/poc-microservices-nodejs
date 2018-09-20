@@ -36,7 +36,7 @@ const localLogin = new Strategy(
       .catch((err) => {
         done(null, false, err);
       });
-  },
+  }
 );
 
 passport.use(localLogin);
