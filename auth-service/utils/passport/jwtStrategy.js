@@ -1,7 +1,7 @@
 const passport = require('koa-passport');
 const { ExtractJwt: { fromAuthHeaderAsBearerToken }, Strategy } = require('passport-jwt');
 
-const { findUserById } = require('../../repository');
+const { findUserById } = require('../../repositories');
 const { ENV: { JWT_SECRET } } = require('../config');
 
 const jwtOptions = {

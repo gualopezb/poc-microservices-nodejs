@@ -1,23 +1,29 @@
 const passport = require('koa-passport');
 const jsonwebtoken = require('jsonwebtoken');
 
-require('./utils/passport/localStrategy');
-require('./utils/passport/jwtStrategy');
+require('../utils/passport/localStrategy');
+require('../utils/passport/jwtStrategy');
 
-const { createUser } = require('./repository');
-const { checkSignupParams, checkUsernameExistence } = require('./middlewares');
-const { ENV: { JWT_SECRET } } = require('./utils/config');
+const { produce } = require('../utils/kafka');
+const { createUser } = require('../repositories');
+const { checkSignupParams, checkUsernameExistence } = require('../middlewares');
+const { ENV: { JWT_SECRET } } = require('../utils/config');
 
 module.exports = {
   createUser: [
-    function* create(next) {
+    function* (next) {
       yield next;
 
       const { request: { body: { username, password } } } = this;
-      yield createUser({
+      const { id, username: usernameDB } = yield createUser({
         username,
         rawPassword: password,
       });
+
+      produce({
+        topic: 'users',
+        messages: [{ type: 'USER_CREATED', id, username: usernameDB }],
+      }).then(data => console.log('Produced message: ', data));
 
       this.body = {
         message: 'User registered successfully',

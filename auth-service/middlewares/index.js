@@ -1,4 +1,4 @@
-const { findUserByUsername } = require('./repository');
+const { findUserByUsername } = require('../repositories');
 
 function* checkSignupParams(next) {
   this.checkBody('username').notEmpty();

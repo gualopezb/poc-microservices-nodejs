@@ -5,7 +5,7 @@ const morgan = require('koa-morgan');
 const error = require('koa-json-error');
 const koaValidate = require('koa-validate');
 
-const { createUser, login, auth } = require('./controller');
+const { createUser, login, auth } = require('./controllers');
 const getDBConnection = require('./config/db');
 const formatError = require('./utils/formatError');
 
@@ -18,7 +18,6 @@ koaValidate(app);
 app.proxy = true;
 
 app.use(morgan.middleware('combined'));
-
 app.use(bodyParser());
 app.use(error({ format: formatError }));
 

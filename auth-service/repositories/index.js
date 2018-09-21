@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 
-const User = require('./model');
+const User = require('../models/user');
 
 const findUserByUsername = username => User.findOne({ username });
 

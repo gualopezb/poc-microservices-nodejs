@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@qiot/qiot-io-kafka": "file:../qiot-io-kafka-lib",
     "bcryptjs": "^2.4.3",
     "dotenv": "^6.0.0",
     "eslint": "^5.6.0",
