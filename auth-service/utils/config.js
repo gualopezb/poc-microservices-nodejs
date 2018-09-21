@@ -11,5 +11,6 @@ module.exports = {
   },
   ENV: {
     JWT_SECRET: process.env.JWT_SECRET,
+    ZOOKEEPER_URL: process.env.ZOOKEEPER_URL
   },
 };

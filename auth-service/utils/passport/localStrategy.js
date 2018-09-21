@@ -2,7 +2,7 @@ const passport = require('koa-passport');
 const { Strategy } = require('passport-local');
 const bcrypt = require('bcryptjs');
 
-const { findUserByUsername } = require('../../repository');
+const { findUserByUsername } = require('../../repositories');
 
 function validatePassword({ user, password }) {
   return bcrypt.compare(password, user.password);
@@ -36,7 +36,7 @@ const localLogin = new Strategy(
       .catch((err) => {
         done(null, false, err);
       });
-  },
+  }
 );
 
 passport.use(localLogin);

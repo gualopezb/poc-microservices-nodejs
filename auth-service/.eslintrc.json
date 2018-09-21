@@ -1,6 +1,9 @@
 {
     "extends": "airbnb-base",
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "require-yield": "off",
+        "func-names": "off",
+        "comma-dangle": "off"
     }
 }
