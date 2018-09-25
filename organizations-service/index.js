@@ -6,6 +6,7 @@ const error = require('koa-json-error');
 const koaValidate = require('koa-validate');
 
 require('./utils/kafka/consumers/users');
+require('./utils/kafka/consumers/devices');
 
 const { createInvitation, acceptInvitation } = require('./controllers');
 const getDBConnection = require('./config/db');
