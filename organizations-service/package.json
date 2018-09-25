@@ -1,0 +1,29 @@
+{
+  "name": "organizations-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@qiot/qiot-io-kafka": "file:../qiot-io-kafka-lib",
+    "dotenv": "^6.0.0",
+    "eslint": "^5.6.0",
+    "koa": "1.4.0",
+    "koa-bodyparser": "^2.5.0",
+    "koa-json-error": "^2.0.0",
+    "koa-morgan": "^0.4.0",
+    "koa-router": "^5.4.2",
+    "koa-validate": "^1.0.7",
+    "mongoose": "^5.2.15"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "nodemon": "^1.18.4"
+  }
+}

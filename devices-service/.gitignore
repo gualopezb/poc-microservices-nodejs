@@ -1,0 +1,11 @@
+/node_modules/
+
+npm-debug.log
+
+# User-specific stuff:
+.idea
+.env
+
+.DS_Store
+
+/data
